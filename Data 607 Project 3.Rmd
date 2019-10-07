@@ -1,0 +1,256 @@
+---
+title: "Data 607 Project 3"
+author: "Ajay Arora"
+date: "October 4, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+#Introduction
+
+This task, in Data 607 Project 3, attempts to illumniate the necessary set of specific skills required to effectively work as a Data Scientist.  The task is to explore variety of publicly available data to perform analysis to determine which set of skills are ranked the highest.  To narrow the focus of this study, the analysis will be conducted on specific software tools and "soft" skills.  See Data and Variables of Measurement for additional information. 
+
+#Team Members
+
+Mario Pena    
+
+Ajay Arora
+
+#Initial Communication / Establishing Work Activity
+
+We established communication over #Slack and spoke over the phone to introduce ourselves properly.  Furthermore, we divided the work effort in half.  The work effort consisted of Data Preparation, Data Cleaning, Data Analysis, and Conclusions.
+
+
+#Ongoing Communication / Artifact Location
+
+We both decided to communicate via email and/or #Slack.  In addition, we establihed a Project 3 group folder on GitHub.  
+
+  https://github.com/AjayArora35/Data-607-Group-Project-3
+
+  https://data607fall2019.slack.com/
+  
+#Data
+
+The data was acquired at Kaggle.com.  (https://docs.google.com/spreadsheets/d/1lac1H2IgCDCs9LLTQL6yb6MUPN1u4C5fJv_6YjipIaM/edit#gid=0) The specific software tools skills were gathered from LinkedIn, Indeed, Monster, SimplyHired, and AngelList. The focus of the study is on specific software tools skills described next. 
+
+#Variables of Measurement
+The following software tools skills are analyzed to determine their importance and/or ranking.
+
+Python
+SQL
+R
+Java 
+Hadoop
+Spark
+Excel
+Tableau
+AWS
+SAS
+Scala
+C++
+Hive
+Javascript
+NoSQL
+Azure
+TensorFlow
+C
+PowerPoint
+Matlab
+Docker
+Git
+C# 
+MySQL
+Ruby
+Microsoft Office
+SPSS
+MongoDB
+Pig
+Pandas
+Hbase
+Cassandra
+Numpy
+Perl
+Power BI
+Node
+PostgreSQL
+D3
+Keras
+PHP
+Redis
+Alteryx
+Jupyter
+Stata
+Caffe
+PyTorch
+
+
+
+
+#Preparing Environment
+```{r}
+#Loading Libraries
+library("knitr")
+library("tidyverse")
+library("tidyr")
+library("dplyr")
+library("stringr")
+library("plotly")
+library("htmlTable")
+library("stringr")
+library("ggplot2")
+library("stats")
+library(kableExtra)
+library('scales')
+
+```
+
+#Data Preparation
+##Read data from GitHub
+```{r}
+data <- read.csv(file="https://raw.githubusercontent.com/AjayArora35/Data-607-Group-Project-3/master/Data Science Software Skills.csv", header=TRUE, stringsAsFactors = FALSE)
+
+head(data) %>% kable() %>%  kable_styling()
+
+```
+#Data Cleaning 
+##Remove commas, and fill in 0's for missing values
+```{r}
+
+
+data$LinkedIn <- as.numeric(gsub(",","",data$LinkedIn))
+data$Indeed <- as.numeric(gsub(",","",data$Indeed))
+data$Monster <- as.numeric(gsub(",","",data$Monster))
+data$SimplyHired <- as.numeric(gsub(",","",data$SimplyHired))
+data[is.na(data)] <- 0
+
+head(data) %>% kable() %>%  kable_styling()
+```
+
+#Analysis
+###LinkedIn Software Tool Favorability Ranking
+```{r}
+data2 <- data %>% 
+  mutate(total = sum(data$LinkedIn),
+         Favorability = percent(data$LinkedIn/total*100, accuracy = .01, scale=1),
+         Ranked = rank((1:length(data$LinkedIn)))) 
+
+select (data2, Keyword, LinkedIn, Favorability, Ranked)
+```
+
+###Indeed Software Tool Favorability Ranking
+```{r}
+data3 <- data %>% 
+  mutate(total = sum(data$Indeed),
+         Favorability = percent(data$Indeed/total*100, accuracy = .01, scale=1),
+         Ranked = rank((1:length(data$Indeed)))) 
+
+select (data3, Keyword, Indeed, Favorability, Ranked)
+```
+
+###Monster Software Tool Favorability Ranking
+```{r}
+data4 <- data %>% 
+  mutate(total = sum(data$Monster),
+         Favorability = percent(data$Monster/total*100, accuracy = .01, scale=1),
+         Ranked = rank((1:length(data$Monster)))) 
+
+select (data4, Keyword, Monster, Favorability, Ranked)
+```
+
+
+###SimplyHired Software Tool Favorability Ranking
+```{r}
+data5 <- data %>% 
+  mutate(total = sum(data$SimplyHired),
+         Favorability = percent(data$SimplyHired/total*100, accuracy = .01, scale=1),
+         Ranked = rank((1:length(data$SimplyHired)))) 
+
+select (data5, Keyword, SimplyHired, Favorability, Ranked)
+```
+
+###AngelList Software Tool Favorability Ranking
+```{r}
+data6 <- data %>% 
+  mutate(total = sum(data$AngelList),
+         Favorability = percent(data$AngelList/total*100, accuracy = .01, scale=1),
+         Ranked = rank((1:length(data$AngelList)))) 
+
+select (data6, Keyword, AngelList, Favorability, Ranked)
+```
+
+###What is the most relevant software tool identified by LinkedIn?
+```{r}
+grid1 <- ggplot(data,
+       aes(x=reorder(data$Keyword, data$LinkedIn),
+           y=data$LinkedIn
+           ))+
+   geom_bar(stat = "identity", fill = "blue") + geom_text(aes(label=data$LinkedIn), vjust=0) +
+  labs(title = "LinkedIn",
+       x = "Software Tools", y = "Tool Relevance")+
+  coord_flip()
+grid1
+```
+
+###What is the most relevant software tool identified by Indeed?
+```{r}
+grid2 <- ggplot(data,
+       aes(x=reorder(data$Keyword, data$Indeed),
+           y=data$Indeed
+           ))+
+   geom_bar(stat = "identity", fill = "dark green") + geom_text(aes(label=data$Indeed), vjust=0) +
+  labs(title = "Indeed",
+       x = "Software Tools", y = "Tool Relevance")+
+  coord_flip()
+
+```
+
+###What is the most relevant software tool identified by Monster?
+```{r}
+grid3 <- ggplot(data,
+       aes(x=reorder(data$Keyword, data$Monster),
+           y=data$Monster
+           ))+
+   geom_bar(stat = "identity", fill = "purple") + geom_text(aes(label=data$Monster), vjust=0) +
+  labs(title = "Monster",
+       x = "Software Tools", y = "Tool Relevance")+
+  coord_flip()
+
+```
+
+###What is the most relevant software tool identified by SimplyHired?
+```{r}
+grid4 <- ggplot(data,
+       aes(x=reorder(data$Keyword, data$SimplyHired),
+           y=data$SimplyHired
+           ))+
+   geom_bar(stat = "identity", fill = "coral") + geom_text(aes(label=data$SimplyHired), vjust=0) +
+  labs(title = "SimplyHired",
+       x = "Software Tools", y = "Tool Relevance")+
+  coord_flip()
+
+```
+
+###What is the most relevant software tool identified by AngelList?
+```{r}
+grid5 <- ggplot(data,
+       aes(x=reorder(data$Keyword, data$AngelList),
+           y=data$AngelList
+           ))+
+   geom_bar(stat = "identity", fill = "pink") + geom_text(aes(label=data$AngelList), vjust=0) +
+  labs(title = "AngelList",
+       x = "Software Tools", y = "Tool Relevance")+
+  coord_flip()
+
+```
+
+
+```{r}
+require(gridExtra)
+grid.arrange(grid1, grid2, grid3, grid4, grid5, ncol=2)
+```
+
