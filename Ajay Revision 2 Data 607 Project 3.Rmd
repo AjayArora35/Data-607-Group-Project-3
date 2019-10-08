@@ -168,9 +168,13 @@ head(data2C) %>% kable() %>%  kable_styling()
 ```{r}
 data2 <- data %>% 
   mutate(total = sum(data$LinkedIn),
-         Favorability = percent(data$LinkedIn/total*100, accuracy = .01, scale=1),
-         Ranked = rank((1:length(data$LinkedIn)))) 
+         Favorability = percent(data$LinkedIn/total*100, accuracy = .01, scale=1))
 
+data2 <- data2[order(-data2$LinkedIn),]
+
+data2$Ranked <- 1:length(data2$LinkedIn)
+
+         
 select (data2, Keyword, LinkedIn, Favorability, Ranked)
 ```
 
@@ -178,8 +182,12 @@ select (data2, Keyword, LinkedIn, Favorability, Ranked)
 ```{r}
 data3 <- data %>% 
   mutate(total = sum(data$Indeed),
-         Favorability = percent(data$Indeed/total*100, accuracy = .01, scale=1),
-         Ranked = rank((1:length(data$Indeed)))) 
+         Favorability = percent(data$Indeed/total*100, accuracy = .01, scale=1))
+
+data3 <- data3[order(-data3$Indeed),]
+
+data3$Ranked <- 1:length(data3$Indeed)
+
 
 select (data3, Keyword, Indeed, Favorability, Ranked)
 ```
@@ -188,8 +196,11 @@ select (data3, Keyword, Indeed, Favorability, Ranked)
 ```{r}
 data4 <- data %>% 
   mutate(total = sum(data$Monster),
-         Favorability = percent(data$Monster/total*100, accuracy = .01, scale=1),
-         Ranked = rank((1:length(data$Monster)))) 
+         Favorability = percent(data$Monster/total*100, accuracy = .01, scale=1))
+
+data4 <- data4[order(-data4$Monster),]
+
+data4$Ranked <- 1:length(data4$Monster)
 
 select (data4, Keyword, Monster, Favorability, Ranked)
 ```
@@ -199,8 +210,12 @@ select (data4, Keyword, Monster, Favorability, Ranked)
 ```{r}
 data5 <- data %>% 
   mutate(total = sum(data$SimplyHired),
-         Favorability = percent(data$SimplyHired/total*100, accuracy = .01, scale=1),
-         Ranked = rank((1:length(data$SimplyHired)))) 
+         Favorability = percent(data$SimplyHired/total*100, accuracy = .01, scale=1))
+
+data5 <- data5[order(-data5$SimplyHired),]
+
+data5$Ranked <- 1:length(data5$SimplyHired)
+
 
 select (data5, Keyword, SimplyHired, Favorability, Ranked)
 ```
@@ -209,8 +224,13 @@ select (data5, Keyword, SimplyHired, Favorability, Ranked)
 ```{r}
 data6 <- data %>% 
   mutate(total = sum(data$AngelList),
-         Favorability = percent(data$AngelList/total*100, accuracy = .01, scale=1),
-         Ranked = rank((1:length(data$AngelList)))) 
+         Favorability = percent(data$AngelList/total*100, accuracy = .01, scale=1))
+
+
+data6 <- data6[order(-data6$AngelList),]
+
+data6$Ranked <- 1:length(data6$AngelList)
+
 
 select (data6, Keyword, AngelList, Favorability, Ranked)
 ```
@@ -296,8 +316,13 @@ grid.arrange(grid1, grid2, grid3, grid4, grid5, ncol=2)
 
 data22 <- data2C %>% 
   mutate(total = sum(data2C$LinkedIn),
-         Favorability = percent(data2C$LinkedIn/total*100, accuracy = .01, scale=1),
-         Ranked = rank((1:length(data2C$LinkedIn)))) 
+         Favorability = percent(data2C$LinkedIn/total*100, accuracy = .01, scale=1))
+
+
+data22 <- data22[order(-data22$LinkedIn),]
+
+data22$Ranked <- 1:length(data22$LinkedIn)
+
 
 select (data22, Keyword, LinkedIn, Favorability, Ranked)
 
@@ -307,8 +332,11 @@ select (data22, Keyword, LinkedIn, Favorability, Ranked)
 ```{r}
 data23 <- data2C %>% 
   mutate(total = sum(data2C$Indeed),
-         Favorability = percent(data2C$Indeed/total*100, accuracy = .01, scale=1),
-         Ranked = rank((1:length(data2C$Indeed)))) 
+         Favorability = percent(data2C$Indeed/total*100, accuracy = .01, scale=1))
+
+data23 <- data23[order(-data23$Indeed),]
+
+data23$Ranked <- 1:length(data23$Indeed)
 
 select (data23, Keyword, Indeed, Favorability, Ranked)
 ```
@@ -317,8 +345,11 @@ select (data23, Keyword, Indeed, Favorability, Ranked)
 ```{r}
 data24 <- data2C %>% 
   mutate(total = sum(data2C$Monster),
-         Favorability = percent(data2C$Monster/total*100, accuracy = .01, scale=1),
-         Ranked = rank((1:length(data2C$Monster)))) 
+         Favorability = percent(data2C$Monster/total*100, accuracy = .01, scale=1))
+
+data24 <- data24[order(-data24$Monster),]
+
+data24$Ranked <- 1:length(data24$Monster)
 
 select (data24, Keyword, Monster, Favorability, Ranked)
 ```
@@ -328,8 +359,11 @@ select (data24, Keyword, Monster, Favorability, Ranked)
 ```{r}
 data25 <- data2C %>% 
   mutate(total = sum(data2C$SimplyHired),
-         Favorability = percent(data2C$SimplyHired/total*100, accuracy = .01, scale=1),
-         Ranked = rank((1:length(data2C$SimplyHired)))) 
+         Favorability = percent(data2C$SimplyHired/total*100, accuracy = .01, scale=1))
+
+data25 <- data25[order(-data25$SimplyHired),]
+
+data25$Ranked <- 1:length(data25$SimplyHired)
 
 select (data25, Keyword, SimplyHired, Favorability, Ranked)
 ```
