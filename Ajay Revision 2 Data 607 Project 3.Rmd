@@ -54,7 +54,7 @@ wordcloud(words = sites, freq = site_freq, min.freq = 1,
 ```
 
 #Variables of Measurement
-The following software tools skills are analyzed to determine their importance and/or ranking.
+###The following software tools skills are analyzed to determine their importance and/or ranking.
 
 Python
 SQL
@@ -120,6 +120,15 @@ data engineering
 project management
 software engineering
 
+
+```{r}
+compskills <- c("machine learning", "analysis", "statistics", "computer science", "communication", "mathematics", "visualization", "AI composite", "deep learning", "NLP composite", "software development", "neural networks", "data engineering", "project management", "software engineering")
+comp_freq <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+set.seed(1234)
+wordcloud(words = compskills, freq = comp_freq, min.freq = 1,
+          max.words=200, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(5, "Dark2"), scale=c(1,.05))
+```
 
 #Preparing Environment
 ```{r}
