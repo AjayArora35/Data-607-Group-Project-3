@@ -10,6 +10,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## R Markdown
+```{r}
+install.packages("wordcloud") # word-cloud generator 
+```
+```{r}
+library("wordcloud")
+```
 
 #Introduction
 
@@ -36,7 +42,16 @@ We both decided to communicate via email and/or #Slack.  In addition, we establi
   
 #Data
 
-The data was acquired at Kaggle.com.  (https://www.kaggle.com/discdiver/datasets) The specific software tools skills and computing skills were gathered from LinkedIn, Indeed, Monster, SimplyHired, and AngelList. The focus of the study is on specific software tools skills and computing skills described next. 
+The data was acquired at Kaggle.com.  (https://www.kaggle.com/discdiver/datasets) The specific software tools skills and computing skills were gathered from the following job posting sites, as indicated in the following image. The focus of the study is on specific software tools skills and computing skills described next. 
+
+```{r}
+sites <- c("LinkedIn", "Indeed", "Monster", "SimplyHired", "AngelList")
+site_freq <- c(1, 1, 1, 1, 1)
+set.seed(1234)
+wordcloud(words = sites, freq = site_freq, min.freq = 1,
+          max.words=200, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
 
 #Variables of Measurement
 The following software tools skills are analyzed to determine their importance and/or ranking.
@@ -429,3 +444,9 @@ grid24
 require(gridExtra)
 grid.arrange(grid21, grid22, grid23, grid24,  ncol=2)
 ```
+
+#Conclusions
+
+Although this study is not based on a scientific inquiry with control mechanisms in place, however, the anecdotal evidence cannot be overlooked regarding the current trending of data science software and computing skills.  Before we discuss any of the findings, it is worth bearing in mind, the unequal respondants distribution among the different job positing sites.  For example, LinkedIn enjoys much larger audience than AngelList.  These unequal distributions are worth keeping in minds as we dicuss some final numbers.  Furthermore, it is worth keeping in mind, whether mechanisms were in place to prevent a user respondent from submitting more than once per question.  
+
+LinkedIn, Indeed, SimplyHired, and AngelList, the computing practitioners respondants, chose Python as their most relevant Data Science software tools skills.  However, there was one exception with Monster.  The participants at Monster chose SQL as the top software tool skill.  
