@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Markdown
 ```{r}
-install.packages("wordcloud") # word-cloud generator 
+#install.packages("wordcloud") # word-cloud generator 
 ```
 ```{r}
 library("wordcloud")
@@ -144,6 +144,7 @@ data$LinkedIn <- as.numeric(gsub(",","",data$LinkedIn))
 data$Indeed <- as.numeric(gsub(",","",data$Indeed))
 data$Monster <- as.numeric(gsub(",","",data$Monster))
 data$SimplyHired <- as.numeric(gsub(",","",data$SimplyHired))
+data$AngelList <- as.numeric(gsub(",","",data$AngelList))
 data[is.na(data)] <- 0
 
 data2C$LinkedIn <- as.numeric(gsub(",","", data2C$LinkedIn))
@@ -159,7 +160,30 @@ head(data2C) %>% kable() %>%  kable_styling()
 
 ```
 
-#Analysis -- Software Skills
+#Analysis -- Software Tools Skills
+###Software Tools Respondents Distribution
+```{r}
+
+stdist <- data %>% 
+  mutate(LinkedInTotal = sum(data$LinkedIn),
+         IndeedTotal = sum(data$Indeed),
+         MonsterTotal = sum(data$Monster),
+         SimplyHiredTotal = sum(data$SimplyHired),
+         AngelListTotal = sum(data$AngelList)
+         )
+
+stvector <- c(stdist[1,'LinkedInTotal'], stdist[1,'IndeedTotal'], stdist[1,'MonsterTotal'], stdist[1,'SimplyHiredTotal'], stdist[1,'AngelListTotal'])
+
+barplot(stvector,
+main = "Software Tools Respondents Distribution",
+xlab = "Posting Sites",
+ylab = "Respondents",
+names.arg = c("LinkedIn", "Indeed", "Monster", "SimplyHired", "AngelList"),
+col = "darkred",
+horiz = FALSE)
+
+```
+
 ###LinkedIn Software Tool Favorability Ranking
 ```{r}
 data2 <- data %>% 
@@ -254,7 +278,7 @@ grid2 <- ggplot(data,
   labs(title = "Indeed",
        x = "Software Tools", y = "Tool Relevance")+
   coord_flip()
-
+grid2
 ```
 
 ###What is the most relevant software tool identified by Monster?
@@ -267,7 +291,7 @@ grid3 <- ggplot(data,
   labs(title = "Monster",
        x = "Software Tools", y = "Tool Relevance")+
   coord_flip()
-
+grid3
 ```
 
 ###What is the most relevant software tool identified by SimplyHired?
@@ -280,7 +304,7 @@ grid4 <- ggplot(data,
   labs(title = "SimplyHired",
        x = "Software Tools", y = "Tool Relevance")+
   coord_flip()
-
+grid4
 ```
 
 ###What is the most relevant software tool identified by AngelList?
@@ -293,7 +317,7 @@ grid5 <- ggplot(data,
   labs(title = "AngelList",
        x = "Software Tools", y = "Tool Relevance")+
   coord_flip()
-
+grid5
 ```
 
 
@@ -306,6 +330,29 @@ grid.arrange(grid1, grid2, grid3, grid4, grid5, ncol=2)
 
 
 #Analysis -- Computing Skills
+
+###Computing Skills Respondents Distribution
+```{r}
+
+csdist <- data2C %>% 
+  mutate(LinkedInTotal = sum(data$LinkedIn),
+         IndeedTotal = sum(data$Indeed),
+         MonsterTotal = sum(data$Monster),
+         SimplyHiredTotal = sum(data$SimplyHired)
+         )
+
+csvector <- c(csdist[1,'LinkedInTotal'], csdist[1,'IndeedTotal'], csdist[1,'MonsterTotal'], csdist[1,'SimplyHiredTotal'])
+
+barplot(csvector,
+main = "Computing Skills Respondents Distribution",
+xlab = "Posting Sites",
+ylab = "Respondents",
+names.arg = c("LinkedIn", "Indeed", "Monster", "SimplyHired"),
+col = "yellow",
+horiz = FALSE)
+
+```
+
 
 ###LinkedIn Computing Skill Favorability Ranking
 ```{r}
